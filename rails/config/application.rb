@@ -22,5 +22,7 @@ module Backend
     config.generators do |g|
       g.test_framework :rspec
     end
+
+    config.hosts << '.example.com'
   end
 end
