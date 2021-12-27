@@ -13,6 +13,15 @@ services:
       dockerfile: Dockerfile
     ports:
       - '13306:3306'
+  client:
+    build:
+      context: rails/client
+      dockerfile: Dockerfile
+    working_dir: /rails/client
+    command: yarn run watch
+    volumes:
+      - ./rails/client:/rails/client
+      - ./rails/app/javascript:/rails/app/javascript
   backend:
     build:
       context: rails
@@ -27,5 +36,6 @@ services:
     depends_on:
       - mysql_dev
       - mysql_test
+      - client
     volumes:
       - ./rails:/rails
