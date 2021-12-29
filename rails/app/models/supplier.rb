@@ -1,5 +1,7 @@
 class Supplier < ApplicationRecord
-  has_many :products, dependent: :destroy
+  include Discard::Model
+
+  has_many :products, -> { Product.kept }, dependent: :destroy
 
   validates :name, presence: true, uniqueness: true
 end
