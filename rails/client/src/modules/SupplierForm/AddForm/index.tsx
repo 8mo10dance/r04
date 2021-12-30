@@ -4,12 +4,9 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { Box, Button } from "@mui/material";
 
-import { postSupplier } from "./api";
+import { Supplier } from "~/types/models";
+import { Supplier as FormValues } from "~/types/forms";
 import Fields from "../common/Fields";
-
-export type FormValues = {
-  name: string;
-};
 
 const schema = yup
   .object({
@@ -17,7 +14,11 @@ const schema = yup
   })
   .required();
 
-const AddSupplierForm: React.VFC<{}> = () => {
+export type Props = {
+  postSupplier: (values: FormValues) => Promise<{ supplier: Supplier }>;
+};
+
+const AddSupplierForm: React.VFC<Props> = ({ postSupplier }) => {
   const methods = useForm<FormValues>({
     resolver: yupResolver(schema),
   });

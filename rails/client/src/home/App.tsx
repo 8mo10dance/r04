@@ -8,8 +8,8 @@ import {
   DialogTitle,
 } from "@mui/material";
 
-import SupplierList from "~/modules/SupplierList";
-import AddSupplierForm from "~/modules/SupplierForm/AddForm";
+import SupplierList from "~/containers/SupplierList";
+import AddSupplierForm from "~/containers/AddSupplierForm";
 
 const App: React.VFC<{}> = () => {
   const [isOpening, setIsOpening] = React.useState(false);

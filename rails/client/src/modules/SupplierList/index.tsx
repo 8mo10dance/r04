@@ -1,17 +1,20 @@
 import React from "react";
 import { List, ListItem, ListItemButton, ListItemText } from "@mui/material";
 
-import { Supplier } from "./types";
-import { getSuppliers } from "./api";
+import { Supplier } from "~/types/models";
 
-const SupplierList: React.VFC<{}> = () => {
+export type Props = {
+  getSuppliers: () => Promise<{ suppliers: Supplier[] }>;
+};
+
+const SupplierList: React.VFC<Props> = ({ getSuppliers }) => {
   const [suppliers, setSuppliers] = React.useState<Supplier[]>([]);
   const [isFetching, setIsFetching] = React.useState(false);
 
   const fetchSuppliers = async () => {
     try {
       const response = await getSuppliers();
-      setSuppliers(response.data.suppliers);
+      setSuppliers(response.suppliers);
       setIsFetching(true);
     } catch (e) {
       setIsFetching(true);
