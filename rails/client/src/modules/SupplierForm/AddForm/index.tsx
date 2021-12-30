@@ -4,9 +4,10 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { Box, Button } from "@mui/material";
 
+import { postSupplier } from "./api";
 import Fields from "../common/Fields";
 
-type FormValues = {
+export type FormValues = {
   name: string;
 };
 
@@ -21,9 +22,17 @@ const AddSupplierForm: React.VFC<{}> = () => {
     resolver: yupResolver(schema),
   });
 
+  const createSupplier = async (values: FormValues) => {
+    try {
+      await postSupplier(values);
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
   return (
     <FormProvider {...methods}>
-      <form onSubmit={methods.handleSubmit((values) => console.log(values))}>
+      <form onSubmit={methods.handleSubmit(createSupplier)}>
         <Box p={2}>
           <Box mb={2}>
             <Fields />
