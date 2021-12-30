@@ -9,6 +9,7 @@ import {
 } from "@mui/material";
 
 import SupplierList from "~/modules/SupplierList";
+import AddSupplierForm from "~/modules/AddSupplierForm";
 
 const App: React.VFC<{}> = () => {
   const [isOpening, setIsOpening] = React.useState(false);
@@ -29,6 +30,7 @@ const App: React.VFC<{}> = () => {
         </Paper>
         <Dialog open={isOpening} onClose={() => setIsOpening(false)}>
           <DialogTitle>発注先登録</DialogTitle>
+          <AddSupplierForm />
         </Dialog>
       </Box>
     </>
