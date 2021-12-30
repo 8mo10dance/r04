@@ -1,1 +1,15 @@
-export const add = (x: number, y: number): number => x + y;
+import axios, { AxiosPromise } from "axios";
+
+type GetSuppliersResponse = {
+  suppliers: Supplier[];
+};
+
+type Supplier = {
+  name: string;
+};
+
+export const getSuppliers = (): AxiosPromise<GetSuppliersResponse> =>
+  axios({
+    method: "GET",
+    url: "/api/v1/suppliers",
+  });

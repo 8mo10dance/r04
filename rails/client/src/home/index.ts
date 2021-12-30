@@ -1,3 +1,12 @@
-import { add } from "~/home/app";
+import { getSuppliers } from "~/home/app";
 
-console.log(add(1, 2));
+const main = async () => {
+  try {
+    const response = await getSuppliers();
+    console.log(response);
+  } catch (e) {
+    console.log(e);
+  }
+};
+
+main();

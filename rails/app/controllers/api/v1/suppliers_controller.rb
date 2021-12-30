@@ -1,7 +1,7 @@
 class Api::V1::SuppliersController < ApplicationController
   def index
     @suppliers = Supplier.kept
-    render json: { suppliers: SupplierBlueprint.render(@suppliers) }
+    render json: { suppliers: SupplierBlueprint.render_as_json(@suppliers) }
   end
 
   def create
@@ -9,12 +9,12 @@ class Api::V1::SuppliersController < ApplicationController
     return render json: { messages: @supplier.errors.full_messages }, status: :unprocessable_entity if @supplier.invalid?
 
     @supplier.save!
-    render json: { supplier: SupplierBlueprint.render(@supplier) }
+    render json: { supplier: SupplierBlueprint.render_as_json(@supplier) }
   end
 
   def show
     @supplier = Supplier.kept.find(params[:id])
-    render json: { supplier: SupplierBlueprint.render(@supplier) }
+    render json: { supplier: SupplierBlueprint.render_as_json(@supplier) }
   end
 
   def update
@@ -23,7 +23,7 @@ class Api::V1::SuppliersController < ApplicationController
     return render json: { messages: @supplier.errors.full_messages }, status: :unprocessable_entity if @supplier.invalid?
 
     @supplier.save!
-    render json: { supplier: SupplierBlueprint.render(@supplier) }
+    render json: { supplier: SupplierBlueprint.render_as_json(@supplier) }
   end
 
   def destroy
