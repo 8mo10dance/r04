@@ -9,7 +9,7 @@ import {
 } from "@mui/material";
 
 import SupplierList from "~/modules/SupplierList";
-import AddSupplierForm from "~/modules/AddSupplierForm";
+import AddSupplierForm from "~/modules/SupplierForm/AddForm";
 
 const App: React.VFC<{}> = () => {
   const [isOpening, setIsOpening] = React.useState(false);
