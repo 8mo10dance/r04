@@ -1,11 +1,9 @@
 import axios, { AxiosPromise } from "axios";
 
+import { Supplier } from "./types";
+
 type GetSuppliersResponse = {
   suppliers: Supplier[];
-};
-
-type Supplier = {
-  name: string;
 };
 
 export const getSuppliers = (): AxiosPromise<GetSuppliersResponse> =>
