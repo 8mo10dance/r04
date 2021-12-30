@@ -1,8 +1,10 @@
 import React from "react";
-import { useForm } from "react-hook-form";
+import { FormProvider, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
-import { Box, Button, TextField } from "@mui/material";
+import { Box, Button } from "@mui/material";
+
+import Fields from "../common/Fields";
 
 type FormValues = {
   name: string;
@@ -15,34 +17,25 @@ const schema = yup
   .required();
 
 const AddSupplierForm: React.VFC<{}> = () => {
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<FormValues>({
+  const methods = useForm<FormValues>({
     resolver: yupResolver(schema),
   });
 
   return (
-    <form onSubmit={handleSubmit((values) => console.log(values))}>
-      <Box p={2}>
-        <Box mb={2}>
-          <TextField
-            id="supplier-name"
-            label="名前"
-            variant="outlined"
-            {...register("name")}
-            error={"name" in errors}
-            helperText={errors.name?.message}
-          />
+    <FormProvider {...methods}>
+      <form onSubmit={methods.handleSubmit((values) => console.log(values))}>
+        <Box p={2}>
+          <Box mb={2}>
+            <Fields />
+          </Box>
+          <Box>
+            <Button variant="contained" color="primary" type="submit">
+              登録
+            </Button>
+          </Box>
         </Box>
-        <Box>
-          <Button variant="contained" color="primary" type="submit">
-            登録
-          </Button>
-        </Box>
-      </Box>
-    </form>
+      </form>
+    </FormProvider>
   );
 };
 
