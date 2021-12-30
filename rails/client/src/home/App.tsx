@@ -1,11 +1,17 @@
 import React from "react";
-import { CssBaseline } from "@mui/material";
+import { CssBaseline, Box, Paper } from "@mui/material";
+
+import SupplierList from "~/modules/SupplierList";
 
 const App: React.VFC<{}> = () => {
   return (
     <>
       <CssBaseline />
-      <h1>hoge</h1>
+      <Box p={2}>
+        <Paper>
+          <SupplierList />
+        </Paper>
+      </Box>
     </>
   );
 };
