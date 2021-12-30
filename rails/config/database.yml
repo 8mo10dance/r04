@@ -8,11 +8,12 @@ default: &default
 
 development:
   <<: *default
-  host: <%= ENV.fetch('RAILS_DATABASE_HOST') { 'mysql_dev' } %>
+  host: <%= ENV.fetch('RAILS_DATABASE_HOST') { '0.0.0.0' } %>
 
 test:
   <<: *default
-  host: <%= ENV.fetch('RAILS_DATABASE_HOST') { 'mysql_test' } %>
+  host: <%= ENV.fetch('RAILS_TEST_DATABASE_HOST') { '0.0.0.0' } %>
+  port: <%= ENV.fetch('RAILS_TEST_DATABASE_PORT') { '13306' } %>
 
 production:
   <<: *default
