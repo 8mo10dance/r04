@@ -1,7 +1,7 @@
 import React from "react";
 
 import SupplierList from "~/modules/SupplierList";
-import { getSuppliers } from "~/api/suppliers";
+import { getSuppliers } from "~/services/suppliers";
 
 const Container: React.VFC<{}> = () => {
   return <SupplierList getSuppliers={getSuppliers} />;

@@ -1,14 +1,18 @@
-import api from "~/api";
+import { DefaultApiFactory } from "~/api";
+
 import { Supplier } from "~/types/models";
 import { Supplier as FormValues } from "~/types/forms";
+import axios from "./base";
+
+const suppliersApi = DefaultApiFactory(undefined, "", axios);
 
 type GetSuppliersResponse = {
   suppliers: Supplier[];
 };
 
 export const getSuppliers = (): Promise<GetSuppliersResponse> =>
-  api
-    .get("/api/v1/suppliers")
+  suppliersApi
+    .getSuppliers()
     .then((response) => response.data)
     .catch((error) => Promise.reject(error));
 
@@ -19,7 +23,7 @@ type PostSupplierResponse = {
 export const postSupplier = (
   values: FormValues
 ): Promise<PostSupplierResponse> =>
-  api
-    .post("/api/v1/suppliers", { supplier: values })
+  suppliersApi
+    .postSupplier({ supplier: values })
     .then((response) => response.data)
     .catch((error) => Promise.reject(error));
