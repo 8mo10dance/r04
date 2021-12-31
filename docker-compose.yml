@@ -42,3 +42,11 @@ services:
       - client
     volumes:
       - ./rails:/rails
+  swagger:
+    image: swaggerapi/swagger-ui
+    ports:
+      - '8081:8080'
+    environment:
+      SWAGGER_JSON: /rails/schema/schema.yml
+    volumes:
+      - ./rails/schema/schema.yml:/rails/schema/schema.yml
