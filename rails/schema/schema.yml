@@ -1,0 +1,153 @@
+openapi: 3.0.3
+
+info:
+  version: 1.0.0
+  title: r04 API
+
+paths:
+  /api/v1/suppliers:
+    get:
+      responses:
+        "200":
+          description: "success"
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - suppliers
+                properties:
+                  suppliers:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/Supplier"
+    post:
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - supplier
+              properties:
+                supplier:
+                  $ref: "#/components/schemas/SupplierParams"
+      responses:
+        "200":
+          description: "success"
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - supplier
+                properties:
+                  supplier:
+                    $ref: "#/components/schemas/Supplier"
+        "422":
+          description: "unprocessable entity"
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - messages
+                properties:
+                  messages:
+                    type: array
+                    items:
+                      type: string
+  /api/v1/suppliers/{id}:
+    get:
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: "success"
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - supplier
+                properties:
+                  supplier:
+                    $ref: "#/components/schemas/Supplier"
+    patch:
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - supplier
+              properties:
+                supplier:
+                  $ref: "#/components/schemas/SupplierParams"
+      responses:
+        "200":
+          description: "success"
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - supplier
+                properties:
+                  supplier:
+                    $ref: "#/components/schemas/Supplier"
+        "422":
+          description: "unprocessable entity"
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - messages
+                properties:
+                  messages:
+                    type: array
+                    items:
+                      type: string
+    delete:
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: "success"
+
+components:
+  schemas:
+    Supplier:
+      type: object
+      required:
+        - id
+        - name
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+    SupplierParams:
+      type: object
+      required:
+        - name
+      properties:
+        name:
+          type: string
