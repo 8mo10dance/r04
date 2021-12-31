@@ -12,3 +12,17 @@ export const postSupplier = (values: FormValues) =>
     .postSupplier({ supplier: values })
     .then((response) => response.data)
     .catch((error) => Promise.reject(error));
+
+export const getSupplier = (id: number) =>
+  apiRequest
+    .getSupplier(id)
+    .then((response) => response.data)
+    .catch((error) => Promise.reject(error));
+
+export const patchSupplier = (id: number, values: FormValues) =>
+  apiRequest
+    .patchSupplier(id, { supplier: values })
+    .then((response) => response.data)
+    .catch((error) => Promise.reject(error));
+
+export const deleteSupplier = (id: number) => apiRequest.deleteSupplier(id);
