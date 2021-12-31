@@ -1,5 +1,7 @@
 import axios from "axios";
 
+import { DefaultApiFactory } from "~/api";
+
 const fetchToken = () =>
   Array.from(document.getElementsByTagName("meta")).find(
     (e) => e.name === "csrf-token"
@@ -12,4 +14,4 @@ const instance = axios.create({
   },
 });
 
-export default instance;
+export const apiRequest = DefaultApiFactory(undefined, "", instance);
