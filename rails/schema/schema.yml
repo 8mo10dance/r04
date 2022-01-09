@@ -137,6 +137,138 @@ paths:
         "200":
           description: "success"
 
+  /api/v1/suppliers/${supplier_id}/products:
+    get:
+      operationId: getProducts
+      responses:
+        "200":
+          description: "success"
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - products
+                properties:
+                  products:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/Product"
+    post:
+      operationId: postProduct
+      parameters:
+        - name: supplier_id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - product
+              properties:
+                product:
+                  $ref: "#/components/schemas/ProductParams"
+      responses:
+        "200":
+          description: "success"
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - product
+                properties:
+                  product:
+                    $ref: "#/components/schemas/Product"
+        "422":
+          description: "unprocessable entity"
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - messages
+                properties:
+                  messages:
+                    type: array
+                    items:
+                      type: string
+  /api/v1/products/${id}:
+    get:
+      operationId: getProduct
+      responses:
+        "200":
+          description: "success"
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - product
+                properties:
+                  product:
+                    $ref: "#/components/schemas/Product"
+    patch:
+      operationId: patchProduct
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - product
+              properties:
+                product:
+                  $ref: "#/components/schemas/ProductParams"
+      responses:
+        "200":
+          description: "success"
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - product
+                properties:
+                  product:
+                    $ref: "#/components/schemas/Product"
+        "422":
+          description: "unprocessable entity"
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - messages
+                properties:
+                  messages:
+                    type: array
+                    items:
+                      type: string
+    delete:
+      operationId: deleteProduct
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: "success"
+
 components:
   schemas:
     Supplier:
@@ -149,7 +281,25 @@ components:
           type: integer
         name:
           type: string
+    Product:
+      type: object
+      required:
+        - id
+        - name
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+
     SupplierParams:
+      type: object
+      required:
+        - name
+      properties:
+        name:
+          type: string
+    ProductParams:
       type: object
       required:
         - name
