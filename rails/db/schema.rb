@@ -10,7 +10,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_01_06_152105) do
+ActiveRecord::Schema.define(version: 2022_01_13_074429) do
+
+  create_table "order_details", charset: "utf8mb4", collation: "utf8mb4_bin", force: :cascade do |t|
+    t.string "name", default: "", null: false
+    t.bigint "product_id"
+    t.bigint "order_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["order_id"], name: "index_order_details_on_order_id"
+    t.index ["product_id"], name: "index_order_details_on_product_id"
+  end
 
   create_table "orders", charset: "utf8mb4", collation: "utf8mb4_bin", force: :cascade do |t|
     t.string "name", default: "", null: false
@@ -38,6 +48,8 @@ ActiveRecord::Schema.define(version: 2022_01_06_152105) do
     t.index ["discarded_at"], name: "index_suppliers_on_discarded_at"
   end
 
+  add_foreign_key "order_details", "orders"
+  add_foreign_key "order_details", "products"
   add_foreign_key "orders", "suppliers"
   add_foreign_key "products", "suppliers"
 end
