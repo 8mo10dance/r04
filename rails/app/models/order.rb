@@ -3,7 +3,7 @@ class Order < ApplicationRecord
 
   validates :name, presence: true
 
-  before_validation :set_name
+  before_validation :set_name, on: :create
 
   private
 
