@@ -1,11 +1,13 @@
 import React from "react";
 import { List, ListItem, ListItemButton, ListItemText } from "@mui/material";
 
+import { useSupplierContext } from "../SupplierContext";
 import { Supplier } from "../types/models";
 import * as SupplierApi from "../SupplierApi";
 
 const _SupplierList: React.VFC<{}> = () => {
-  const [suppliers, setSuppliers] = React.useState<Supplier[]>([]);
+  const [suppliers, setSuppliers] = useSupplierContext();
+
   const [isFetching, setIsFetching] = React.useState(false);
   const fetchSuppliers = async () => {
     try {

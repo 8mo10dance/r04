@@ -7,6 +7,7 @@ import {
 } from "./AddSupplierFormDialog";
 import SupplierList from "./SupplierList";
 import AddSupplierForm from "./AddSupplierForm";
+import { SupplierProvider } from "./SupplierContext";
 
 const SupplierListPage: React.VFC<{}> = () => {
   const [open, setOpen] = useAddSupplierFormDialog();
@@ -28,7 +29,9 @@ const SupplierListPage: React.VFC<{}> = () => {
 };
 
 export default () => (
-  <AddSupplierFormDialogProvider>
-    <SupplierListPage />
-  </AddSupplierFormDialogProvider>
+  <SupplierProvider>
+    <AddSupplierFormDialogProvider>
+      <SupplierListPage />
+    </AddSupplierFormDialogProvider>
+  </SupplierProvider>
 );

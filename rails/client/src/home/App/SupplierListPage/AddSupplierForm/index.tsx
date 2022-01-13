@@ -6,6 +6,7 @@ import { Box, Button, TextField } from "@mui/material";
 
 import { Supplier } from "../types/models";
 import { Supplier as FormValues } from "../types/forms";
+import { useSupplierContext } from "../SupplierContext";
 import { useAddSupplierFormDialog } from "../AddSupplierFormDialog";
 import * as SupplierApi from "../SupplierApi";
 
@@ -16,6 +17,7 @@ const schema = yup
   .required();
 
 const AddSupplierForm: React.VFC<{}> = () => {
+  const [suppliers, setSuppliers] = useSupplierContext();
   const [_, setOpen] = useAddSupplierFormDialog();
 
   const {
@@ -28,8 +30,9 @@ const AddSupplierForm: React.VFC<{}> = () => {
 
   const createSupplier = async (values: FormValues) => {
     try {
-      await SupplierApi.postSupplier(values);
+      const { supplier } = await SupplierApi.postSupplier(values);
       setOpen(false);
+      setSuppliers(suppliers.concat([supplier]));
     } catch (e) {
       console.log(e);
     }
