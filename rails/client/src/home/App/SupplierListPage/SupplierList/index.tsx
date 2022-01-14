@@ -1,19 +1,17 @@
 import React from "react";
 import { List, ListItem, ListItemButton, ListItemText } from "@mui/material";
 
-import { Supplier } from "~/types/models";
+import { useSupplierContext } from "../SupplierContext";
+import { Supplier } from "../types/models";
+import * as SupplierApi from "../SupplierApi";
 
-export type Props = {
-  getSuppliers: () => Promise<{ suppliers: Supplier[] }>;
-};
+const _SupplierList: React.VFC<{}> = () => {
+  const [suppliers, setSuppliers] = useSupplierContext();
 
-const SupplierList: React.VFC<Props> = ({ getSuppliers }) => {
-  const [suppliers, setSuppliers] = React.useState<Supplier[]>([]);
   const [isFetching, setIsFetching] = React.useState(false);
-
   const fetchSuppliers = async () => {
     try {
-      const response = await getSuppliers();
+      const response = await SupplierApi.getSuppliers();
       setSuppliers(response.suppliers);
       setIsFetching(true);
     } catch (e) {
@@ -39,4 +37,4 @@ const SupplierList: React.VFC<Props> = ({ getSuppliers }) => {
   );
 };
 
-export default SupplierList;
+export default _SupplierList;

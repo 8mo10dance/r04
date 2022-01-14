@@ -1,5 +1,6 @@
-import { Supplier as FormValues } from "~/types/forms";
-import { apiRequest } from "./base";
+import { apiRequest } from "~/services/apiRequest";
+
+import { Supplier as FormValues } from "./types/forms";
 
 export const getSuppliers = () =>
   apiRequest
