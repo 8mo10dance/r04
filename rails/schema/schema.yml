@@ -137,9 +137,15 @@ paths:
         "200":
           description: "success"
 
-  /api/v1/suppliers/${supplier_id}/products:
+  /api/v1/suppliers/${supplierId}/products:
     get:
       operationId: getProducts
+      parameters:
+        - name: supplierId
+          in: path
+          required: true
+          schema:
+            type: integer
       responses:
         "200":
           description: "success"
@@ -201,6 +207,12 @@ paths:
   /api/v1/products/${id}:
     get:
       operationId: getProduct
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
       responses:
         "200":
           description: "success"
