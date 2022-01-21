@@ -26,6 +26,11 @@ services:
     build:
       context: rails
       dockerfile: Dockerfile
+      args:
+        USERNAME: app
+        GROUPNAME: app
+        UID: 1000
+        GID: 1000
     working_dir: /rails
     ports:
       - '3000:3000'
