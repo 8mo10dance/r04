@@ -8,7 +8,7 @@ FactoryBot.define do
       end
 
       after :create do |supplier, e|
-        supplier.products << create_list(:product, e.product_count, supplier: supplier)
+        supplier.products = create_list(:product, e.product_count, supplier: supplier)
       end
     end
   end
