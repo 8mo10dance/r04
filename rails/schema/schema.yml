@@ -137,6 +137,84 @@ paths:
         "200":
           description: "success"
 
+  /api/v1/orders:
+    get:
+      operationId: getOrders
+      responses:
+        "200":
+          description: "success"
+          content:
+            application/json:
+              schema:
+                type: object
+              required:
+                - orders
+              properties:
+                orders:
+                  type: array
+                  items:
+                    $ref: "#/components/schemas/Order"
+    post:
+      operationId: postOrder
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - order
+              properties:
+                order:
+                  $ref: "#/components/schemas/OrderParams"
+      responses:
+        "200":
+          description: "success"
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - order
+                properties:
+                  order:
+                    $ref: "#/components/schemas/Order"
+        "422":
+          description: "unprocessable entity"
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - messages
+                properties:
+                  messages:
+                    type: array
+                    items:
+                      type: string
+
+  /api/v1/orders/${id}:
+    get:
+      operationId: getOrder
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: "success"
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - order
+                properties:
+                  order:
+                    $ref: "#/components/schemas/Order"
+
   /api/v1/suppliers/${supplierId}/products:
     get:
       operationId: getProducts
@@ -303,6 +381,43 @@ components:
           type: integer
         name:
           type: string
+    Order:
+      type: object
+      required:
+        - id
+        - name
+        - supplier_id
+        - created_at
+        - order_details
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        supplier_id:
+          type: integer
+        created_at:
+          type: string
+        order_details:
+          type: array
+          items:
+            $ref: "#/components/schemas/OrderDetail"
+    OrderDetail:
+      type: object
+      required:
+        - id
+        - name
+        - quantity
+        - product_id
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        quantity:
+          type: number
+        product_id:
+          type: integer
 
     SupplierParams:
       type: object
@@ -318,3 +433,25 @@ components:
       properties:
         name:
           type: string
+    OrderParams:
+      type: object
+      required:
+        - supplier_id
+        - order_details
+      properties:
+        supplier_id:
+          type: integer
+        order_details:
+          type: array
+          items:
+            $ref: "#/components/schemas/OrderDetailParams"
+    OrderDetailParams:
+      type: object
+      required:
+        - quantity
+        - product_id
+      properties:
+        quantity:
+          type: number
+        product_id:
+          type: integer
